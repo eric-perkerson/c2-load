@@ -14,7 +14,8 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-PATH = "/Users/eric/Python Programs/C2"
+PATH = "/Users/eric/Code/Python/c2-load"
+# PATH = os.getcwd()
 BROWSER_COMMAND = "open -a /Applications/Google\ Chrome.app %s"
 SCOPES_GMAIL = ["https://www.googleapis.com/auth/gmail.readonly"]
 SCOPES_DRIVE = ["https://www.googleapis.com/auth/drive.metadata.readonly"]
@@ -34,8 +35,7 @@ def get_gmail_creds():
         if creds_gmail and creds_gmail.expired and creds_gmail.refresh_token:
             creds_gmail.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES_GMAIL)
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES_GMAIL)
             creds_gmail = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token_gmail.pickle', 'wb') as token:
